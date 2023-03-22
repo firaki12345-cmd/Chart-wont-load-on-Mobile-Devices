@@ -1,0 +1,84 @@
+.spinner {
+  border: 8px solid rgba(0, 0, 0, 0.1);
+  border-top-color: #3498db;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  animation: spin 1s ease-in-out infinite;
+  margin: 0 auto;
+  display: none;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+
+#main-base-content{
+display: flex;
+flex-wrap: wrap;
+background-color: white;
+justify-content: center;
+gap: 20px;
+}
+
+
+.flexbox-Buttons{
+display: flex;
+flex-wrap: wrap;
+background-color: white;
+justify-content: center;
+gap: 20px;
+margin: 45px;
+width: 100%;
+}
+
+
+
+#chart-wrapper { 
+  display: none;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  height: 50vh;
+  /* gap: 20px;
+  margin: 45px;  */
+  width: 100%; 
+} 
+
+
+
+.flexbox-item{
+width: 250px;
+height: 250px;
+margin: 45px;
+}
+
+img{
+height: 250px;
+width: 250px;
+object-fit: contain;
+}
+
+.Main-Info{
+text-align: center;
+}
+
+.small-heart {
+font-size: 0.8em;
+color: #ff0000;
+}
+
+
+
+
+
+
+@media (max-width: 767px) {
+  #chart-wrapper {
+    height: 300px; /* or any other height that works for your chart */
+  }
+}

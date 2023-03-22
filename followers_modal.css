@@ -1,0 +1,89 @@
+.modal {
+  display: none; /* Hide the modal by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  padding-top: 60px;
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 5% auto; /* 15% from the top and centered */
+   /* Could be more or less, depending on screen size */
+  max-height: 400px;
+  max-width: 400px;
+}
+
+/* The Close Button */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.followers-table td:first-child {
+  width: 50px;
+  padding-right: 10px;
+}
+.followers-table td:nth-child(2) {
+  width: auto;
+}
+.followers-table td:first-child img {
+  border-radius: 50%;  /* make the images circular */
+  width: 50px;
+  height: 50px;
+}
+
+
+#profile_followers {
+  max-width: 13% ; /* adjust as needed */
+}
+
+
+
+
+
+.following-table td:first-child {
+  width: 50px;
+  padding-right: 10px;
+}
+.following-table td:nth-child(2) {
+  width: auto;
+}
+.following-table td:first-child img {
+  border-radius: 50%;  /* make the images circular */
+  width: 50px;
+  height: 50px;
+}
+
+
+#profile_following {
+  max-width: 13% /* adjust as needed */
+}  
+
+
+  /* Adjust the modal's size and layout for screens smaller than 600px */
+@media (max-width: 600px) {
+    .modal-content {
+      max-height: 200px;
+    }
+    .modal-content img {
+      width: 30px;
+      height: 30px;
+    }
+  }

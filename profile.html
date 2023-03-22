@@ -1,0 +1,179 @@
+{% extends "testing/base.html" %}
+
+{% load static %}
+
+
+{% block title %}
+
+<title> {{profile.user.username}}'s Profile Page </title>
+
+{% endblock title %}
+
+
+
+
+{% block scripts %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'testing/square.css' %}">
+
+<link rel="stylesheet" type="text/css" href="{% static 'testing/followers_modal.css' %}">
+
+
+
+
+<script src ="{% static 'js/followers_modal.js' %}" defer></script>
+
+
+<script src ="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
+
+
+<script src ="{% static 'js/async_money_graph.js' %}" defer></script> 
+
+
+
+{% endblock scripts %}
+
+{% block content %}
+
+
+
+<div class = "flexbox-Buttons">
+
+<div class="profile-page">
+       <img src="{{ profile.profile_img.url }}" alt="Profile Image">
+       <h1 class = "profile_username">{{ profile.user.username }}</h1>
+       <p class = "profile_bio" >{{ profile.bio }}</p>
+       <p class = "profile_location" >Location: {{ profile.location }}</p>
+       <p id="profile_followers" class = "profile_followers" >Followers: {{ profile.no_of_followers }}</p>
+
+
+       <div id="followers-modal" class="modal">
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <h2>Followers</h2>
+          <table class="followers-table">
+            <tbody id="followers-list"></tbody>
+          </table>
+        </div>
+      </div>
+      
+      <p id="profile_following" class = "profile_following" >Following: {{ profile.no_of_following }}</p>
+
+      <div id="following-modal" class="modal">
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <h2>Following</h2>
+          <table class="following-table">
+            <tbody id="following-list"></tbody>
+          </table>
+        </div>
+      </div>
+      
+
+{% if user.is_authenticated %}
+
+  {% if user.username == profile.user.username %}
+
+    <button id = "earnings-button" type="button" class="btn btn-success">Your Earnings</button> 
+
+    <a href = "{% url 'account_logout' %}" > <button id = "logout-button"  name = "user-logout" data-classname="Profile-Logout" class="btn btn-danger">Logout</button> </a>
+
+  {% elif user in profile.followed_by.all %}
+
+    {% csrf_token %}
+    <button id = "follow/unfollow"  data-user-id="{{ profile.user.id }}" name = "profile-id" value = {{profile.user}} data-classname="follow" class="btn btn-danger">UnFollow</button>
+
+  {% else %}
+
+    {% csrf_token %}
+    <button id= "follow/unfollow" data-user-id="{{ profile.user.id }}" name = "profile-id" value = {{profile.user}} data-classname="unfollow" class="btn btn-primary">Follow</button>
+
+  {% endif %}
+
+  </br>
+  </br>
+  
+  <div class="spinner"></div>
+
+
+
+{% endif %}
+
+
+
+    </p>
+
+
+
+    
+     </div>
+
+
+</br>
+
+<div id="chart-wrapper">
+
+    <canvas id = "myChart"> </canvas>
+      
+</div>
+
+</div>
+
+</br>
+</br>     
+
+
+
+
+  {% for item in prods %}
+
+   <div class="flexbox-item infinite-item">
+
+    <a href="/{{item.retailer.slug}}"><img src="{{item.retailer.image.url}}"></a>
+    <div class="Main-Info">
+      <div class = "Shop"><b>{{item.retailer.shop}}</b></div>
+      <div class = "Title">{{item.retailer.title | truncatechars:29}}</div>
+      
+      <div class = "Price">
+
+        {% if user.is_authenticated %}
+      
+        <button id="like-unlike-{{item.retailer.id}}" link = "/{{item.retailer.slug}}" name = "item-id" value = "{{item.retailer.id}}" class = 'btn btn-primary'> {{item.retailer.no_of_likes}} <i class="fa fa-heart small-heart"></i> </button>
+
+      {% else %}
+
+      <i class="fa fa-heart small-heart" link = "/{{item.retailer.slug}}" style="font-size: 24px;"></i> 
+
+      {% endif %}
+
+
+      {% if item.retailer.price == 0 %}
+
+      <a href="/{{item.retailer.slug}}" target="_blank"><b>"Click Here To Find Price" </b></div> </a>
+
+      {% elif item.retailer.country == "USA" %}
+
+      <a href="/{{item.retailer.slug}}" target="_blank"><b>${{item.retailer.price}}</b></div></a>
+
+      {% else %}
+
+ 
+      <a href="/{{item.retailer.slug}}" target="_blank"><b>£{{item.retailer.price}}</b></div></a>
+    
+      {% endif %}
+
+
+
+
+    </div>
+
+
+   </div>
+
+
+  {% endfor %}
+
+
+
+  
+{% endblock content %}
